@@ -4,7 +4,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const nunjucks = require('nunjucks');
-const sassMiddleware = require('node-sass-middleware');
 
 const indexRouter = require('./routes/index');
 
@@ -31,18 +30,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(sassMiddleware({
-  src: path.join(__dirname, 'assets/sass'),
-  dest: path.join(__dirname, 'public/stylesheets'),
-  debug: true,
-  prefix: '/public/stylesheets/',
-  outputStyle: 'compressed',
-  includePaths: [
-    'node_modules/govuk-frontend/govuk',
-    'node_modules/govuk-frontend/govuk/assets',
-  ],
-}));
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/govuk-frontend', express.static(path.join(__dirname, '../node_modules/govuk-frontend/govuk')));
